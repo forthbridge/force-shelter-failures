@@ -1,0 +1,6 @@
+[h1]Provides a Remix config for Shelter Failure (Precycle) chance![/h1]
+
+[h1]Disable them, make them occur every cycle, or anything in-between![/h1]
+
+[b](thumbnail and idea by badgerotter)[/b]
+[b][u]Source: https://github.com/forthbridge/force-shelter-failures[/u][/b]
