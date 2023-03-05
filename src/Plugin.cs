@@ -30,15 +30,47 @@ namespace ForceShelterFailures
         {
             Logger = base.Logger;
 
-            On.RainWorld.LoadSetupValues += RainWorld_LoadSetupValues;
+            On.RainWorld.OnModsInit += RainWorld_OnModsInit;
         }
 
-        private RainWorldGame.SetupValues RainWorld_LoadSetupValues(On.RainWorld.orig_LoadSetupValues orig, bool distributionBuild)
+        private static bool isInit = false;
+
+        private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld self)
         {
-            RainWorldGame.SetupValues setupValues = orig(distributionBuild);
-            
-            setupValues.forcePrecycles = true;
-            return setupValues;
+            orig(self);
+
+            if (isInit) return;
+            isInit = true;
+
+            MachineConnector.SetRegisteredOI(MOD_ID, Options.instance);
+
+            try
+            {
+                IL.RainCycle.ctor += RainCycle_ctor;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+            }
+        }
+
+        private void RainCycle_ctor(ILContext il)
+        {
+            ILCursor c = new ILCursor(il);
+
+            c.GotoNext(MoveType.Before,
+                x => x.MatchLdsfld<MoreSlugcats.MoreSlugcats>("cfgDisablePrecycles"));
+
+            c.Index += 2;
+            c.Emit(OpCodes.Pop);
+            c.Emit(OpCodes.Ldc_I4_1);
+
+            c.GotoNext(MoveType.Before,
+                x => x.MatchLdcR4(0.0f));
+
+            c.Remove();
+            c.Emit(OpCodes.Ldarg_0);
+            c.EmitDelegate<Func<RainCycle, float>>(rainCycle => Options.shelterFailureChance.Value - 1);
         }
     }
 }
