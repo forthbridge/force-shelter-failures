@@ -21,7 +21,7 @@ namespace ForceShelterFailures
     {
         public static new ManualLogSource Logger { get; private set; } = null!;
 
-        public const string VERSION = "1.0.0";
+        public const string VERSION = "1.0.1";
         public const string MOD_NAME = "Force Shelter Failures";
         public const string MOD_ID = "forceshelterfailures";
         public const string AUTHOR = "forthbridge";
