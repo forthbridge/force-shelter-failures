@@ -58,12 +58,29 @@ namespace ForceShelterFailures
         {
             ILCursor c = new ILCursor(il);
 
+            ILLabel dest = null!;
+
+            c.GotoNext(MoveType.Before,
+                x => x.MatchLdarg(1),
+                x => x.MatchCallOrCallvirt<World>("get_game"),
+                x => x.MatchCallOrCallvirt<RainWorldGame>("get_GetStorySession"),
+                x => x.MatchLdfld<StoryGameSession>("saveState"),
+                x => x.MatchLdfld<SaveState>("cycleNumber"),
+                x => x.MatchLdcI4(0),
+                x => x.MatchBgt(out dest));
+
+            c.RemoveRange(7);
+            c.Emit(OpCodes.Br, dest);
+
+
             c.GotoNext(MoveType.Before,
                 x => x.MatchLdsfld<MoreSlugcats.MoreSlugcats>("cfgDisablePrecycles"));
 
             c.Index += 2;
             c.Emit(OpCodes.Pop);
             c.Emit(OpCodes.Ldc_I4_1);
+
+
 
             c.GotoNext(MoveType.Before,
                 x => x.MatchLdcR4(0.0f));
