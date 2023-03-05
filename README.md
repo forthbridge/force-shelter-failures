@@ -1,6 +1,6 @@
 # Provides a Remix config for Shelter Failure (Precycle) chance!
 
-# Disable them, make them occur every cycle, or anything in-between!
+## Disable them, make them occur every cycle, or anything in-between!
 
 ## Manual Installation
 You can find most workshop mods hosted on RainDB! (http://www.raindb.net/)
