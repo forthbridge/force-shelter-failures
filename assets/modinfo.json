@@ -2,7 +2,6 @@
 	"id": "forceshelterfailures",
 	"name": "Force Shelter Failures",
 	"version": "1.0.1",
-	"target_game_version": "v1.9.06",
 	"authors": "forthbridge & badgerotter (thumbnail)",
 	"description": "Provides a chance config for Shelter Failures (Precycles)!<LINE><LINE>Disable them, make them occur every cycle, or anything in-between!<LINE><LINE>Source: https://github.com/forthbridge/force-shelter-failures",
 	"requirements": ["moreslugcats"],
